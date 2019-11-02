@@ -1,0 +1,71 @@
+<aura:component controller="link_to_record_controller">
+    
+    <!--Event Handlres-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!--Attributes-->
+    <aura:attribute type="string" name="recordId" required="true"/>
+    <aura:attribute type="List" name="fields" required="true"/>
+    <aura:attribute type="string" name="objectName" />
+    <aura:attribute type="string" name="recordName" />
+    <aura:attribute type="string" name="url" />
+    <aura:attribute type="List" name="values" />
+    <aura:attribute type="Boolean" name="isLoading" default="true"/>
+    <aura:attribute type="Boolean" name="v.showPop" default="false"/>
+    
+    
+    <aura:if isTrue="{!empty(v.recordName)}">
+        <div class="placeholder"></div>
+        <aura:set attribute="else">
+            <!--{!'/lightning/r/' + v.recordId + '/view'}-->
+            <a target="_blank"
+               class="outputLookupLink"
+               onclick="{!c.handleNavClick}"
+               onfocus="{!c.handleMouseOverOrFocusElement}" 
+               onblur="{!c.handleMouseLeaveOrBlurElement}" 
+               onmouseover="{!c.handleMouseOverOrFocusElement}" 
+               onmouseleave="{!c.handleMouseLeaveOrBlurElement}">{!v.recordName}</a>
+        </aura:set>
+    </aura:if>
+    <aura:if isTrue="{!(v.showPop)}">
+        <section aria-labelledby="panel-heading-id" class="slds-popover slds-popover_panel slds-nubbin_left-top pop-top-left" role="dialog">
+            
+            <aura:if isTrue="{!v.isLoading}">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            </aura:if>
+            
+            <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-small slds-float_right slds-popover__close" title="Close dialog">
+                <lightning:icon iconName="utility:close" size="x-small"/>
+                <span class="slds-assistive-text">Close dialog</span>
+            </button>
+            <div class="slds-popover__header">
+                <header class="slds-media slds-media_center slds-m-bottom_small">
+                    <span class="{!'slds-icon_container slds-icon-standard-custom slds-media__figure'}">
+                        <lightning:icon iconName="{!'standard:orders'}" size="small" aria-hidden="true"/>
+                    </span>
+                    <div class="slds-media__body">
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="panel-heading-id">
+                            <a href="javascript:void(0);">{!v.recordName}</a>
+                        </h2>
+                    </div>
+                </header>
+                <footer class="slds-grid slds-wrap slds-grid_pull-padded">
+                    <aura:iteration items="{!v.values}" var="item">
+                        <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+                            <dl>
+                                <dt>
+                                    <p class="slds-popover_panel__label slds-truncate" title="{!item.label}">{!item.label}</p>
+                                </dt>
+                                <dd>
+                                    <p class="slds-truncate" title="{!item.value}">{!item.value}</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </aura:iteration>
+                </footer>
+            </div>
+        </section>
+    </aura:if>
+    
+    
+</aura:component>
