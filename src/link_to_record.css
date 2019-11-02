@@ -1,0 +1,27 @@
+.THIS.outputLookupLink {
+    border-bottom: 1px dotted;
+    display: inline-block;
+    vertical-align: top;
+    color: rgb(0, 109, 204);
+}
+
+
+.THIS.outputLookupLink:hover {
+    text-decoration: none;
+}
+
+.THIS.pop-top-left {
+    margin-top:-30px;
+    margin-left:18px; 
+    position:absolute
+}
+
+.THIS.placeholder {
+    height:10px; 
+    margin:4px; 
+    display:inline-block; 
+    border-radius:5px; 
+    overflow:hidden; 
+    width:64px; 
+    background:#f2f2fa
+}
