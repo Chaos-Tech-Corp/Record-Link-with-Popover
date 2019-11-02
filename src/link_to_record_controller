@@ -1,0 +1,24 @@
+public class link_to_record_controller {
+    
+    @Auraenabled
+    public static linkDetails loadRecord(string recordId, string[] fields) {
+        
+        linkDetails details = new linkDetails();
+        
+        //find object name from recordId
+        details.objectName = Id.valueOf(recordID).getSObjectType().getDescribe().getName();
+
+        details.fields = database.query('SELECT Id, ' + string.join(fields,',') + ' FROM ' + details.objectName + ' WHERE Id = :recordId LIMIT 1');
+        
+        return details;
+        
+    }
+ 
+    public class linkDetails {
+        @Auraenabled
+        public string objectName;
+        @Auraenabled
+        public sObject fields;
+    }
+    
+}
